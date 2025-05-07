@@ -1,0 +1,49 @@
+{
+  "id": "mookAI-dsa5",
+  "title": "mookAI DSA5 - The Dark Eye 5th Edition support for mookAI",
+  "description": "<p>The mook is characterizied by a lack of ambition: they must be told where to go, what to do, and when to do it. This module automates those decisions on their behalf, freeing you of managing their doomed efforts.</p><p>The scope of this module does not include full automation. It is merely a tool to handle the movement and choices of low-intelligence, low-utility, high-quantity enemies (e.g. goblins, wild animals, barbarians) so that the game master may focus on the Heroes and their true adversaries.</p><p>This module adds a hotkey ('g') that, when pressed, triggers this automation. The module finds the token with the current initiative, checks its vision for possible targets, chooses one to attack (or explores if there are none), plans a collision-free path, moves the token into range, attacks, and ends the turn. Mooks will repeat these steps to account for changes in vision and will run until they attack or run out of resources.</p><p>Please read the documentation.</p>",
+  "authors": [
+    {
+      "name": "OnkelDom",
+      "discord": "OnkelDom"
+    }
+  ],
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12.331",
+    "maximum": "13"
+  },
+  "esmodules": [
+    "scripts/mookDSA5.js"
+  ],
+  "styles": [],
+  "relationships": {
+    "systems": [
+      {
+        "id": "dsa5",
+        "type": "system",
+        "manifest": "https://raw.githubusercontent.com/Plushtoast/dsa5-foundryVTT/master/system.json",
+        "compatibility": {
+          "minimum": "2.0.0",
+          "verified": "3.6.0"
+        }
+      }
+    ],
+    "requires": [
+      {
+        "id": "lib-find-the-path-12",
+        "type": "module"
+      },
+      {
+        "id": "mookAI-12",
+        "type": "module"
+      }
+    ]
+  },
+  "url": "https://github.com/OnkelDom/mookAI-dsa5",
+  "manifest": "https://github.com/OnkelDom/mookAI-dsa5/releases/latest/module.json",
+  "download": "https://github.com/OnkelDom/mookAI-dsa5/releases/latest/download/mookAI-dsa5.zip",
+  "license": "LICENSE",
+  "readme": "README.md"
+}
