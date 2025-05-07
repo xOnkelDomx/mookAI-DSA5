@@ -109,21 +109,35 @@ Hooks.once("init", () => {
     console.log("✅ mookAI-DSA5: init hook erreicht");
 });
 
-// Registrierung mit verzögerter Prüfung
+// Bereitstellung der API für andere Module
 Hooks.once("ready", () => {
-    const api = game.modules.get("mookAI-12")?.api;
-    console.log("🧪 mookAI-DSA5 | Found mookAI-12 API:", api);
+    // Eigene API definieren
+    const api = {
+        systemModels: {
+            dsa5: {
+                model: MookModelDSA5,
+                settings: MookModelSettings
+            }
+        },
+        // weitere API-Funktionen bei Bedarf
+    };
 
-    if (api?.registerSystemModel) {
-        api.registerSystemModel("dsa5", MookModelDSA5, MookModelSettings);
-        console.log("✅ mookAI-DSA5: ModelClass via registerSystemModel() registriert");
+    const mod = game.modules.get("mookAI-12");
+    if (mod) {
+        mod.api = api;
+        console.log("📡 mookAI-12 API registriert:", mod.api);
 
-        // Zeitverzögerte Überprüfung, um Timing-Probleme zu vermeiden
-        setTimeout(() => {
-            const testModel = api.getModelForSystem?.("dsa5");
-            console.log("🧪 Überprüftes Model für 'dsa5' nach Timeout:", testModel);
-        }, 100);
+        // Testweise Nutzung von registerSystemModel falls verfügbar
+        if (mod.api?.registerSystemModel) {
+            mod.api.registerSystemModel("dsa5", MookModelDSA5, MookModelSettings);
+            console.log("✅ mookAI-DSA5: ModelClass via registerSystemModel() registriert");
+
+            setTimeout(() => {
+                const testModel = mod.api.getModelForSystem?.("dsa5");
+                console.log("🧪 Überprüftes Model für 'dsa5' nach Timeout:", testModel);
+            }, 100);
+        }
     } else {
-        console.warn("⚠️ mookAI | API nicht verfügbar oder Modul nicht geladen.");
+        console.error("❌ Modul mookAI-12 nicht gefunden");
     }
 });
