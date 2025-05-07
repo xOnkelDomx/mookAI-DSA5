@@ -108,13 +108,17 @@ class MookModelDSA5 extends MookModel {
     }
 }
 
-// Früher Hook für Model-Registrierung
+// Initialisierung und Registrierung
 Hooks.once("init", () => {
     console.log("✅ mookAI-DSA5: init hook erreicht");
-    Hooks.on("mookAI.getModelClass", (systemId, modelClassContainer) => {
-        if (systemId === "dsa5") {
-            modelClassContainer.modelClass = MookModelDSA5;
-            console.log("✅ mookAI-DSA5: ModelClass erfolgreich registriert für dsa5");
-        }
-    });
+});
+
+Hooks.once("ready", () => {
+    const api = game.modules.get("mookAI-12")?.api;
+    if (api?.registerSystemModel) {
+        api.registerSystemModel("dsa5", MookModelDSA5, MookModelSettings);
+        console.log("✅ mookAI-DSA5: ModelClass via registerSystemModel() registriert");
+    } else {
+        console.warn("⚠️ mookAI | API nicht verfügbar oder Modul nicht geladen.");
+    }
 });
