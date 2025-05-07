@@ -3,7 +3,7 @@ import { MookModelSettings } from "../../mookAI-12/scripts/mookModelSettings.js"
 import { debugLog } from "../../mookAI-12/scripts/behaviors.js";
 
 /*
-   DSA5-specific Mook model for mookAI. Supports simple melee, ranged, and thrown weapon attacks.
+   DSA5-spezifisches MookModel für mookAI. Unterstützt einfache Nah-, Fern- und Wurfwaffenangriffe.
 */
 class MookModelDSA5 extends MookModel {
     constructor(token_, settings_, ...args_) {
@@ -104,11 +104,12 @@ class MookModelDSA5 extends MookModel {
     }
 }
 
-// Initialisierung und Registrierung
+// Initialisierung
 Hooks.once("init", () => {
     console.log("✅ mookAI-DSA5: init hook erreicht");
 });
 
+// Registrierung mit verzögerter Prüfung
 Hooks.once("ready", () => {
     const api = game.modules.get("mookAI-12")?.api;
     console.log("🧪 mookAI-DSA5 | Found mookAI-12 API:", api);
@@ -117,9 +118,11 @@ Hooks.once("ready", () => {
         api.registerSystemModel("dsa5", MookModelDSA5, MookModelSettings);
         console.log("✅ mookAI-DSA5: ModelClass via registerSystemModel() registriert");
 
-        // Nachprüfen, ob es wirklich gesetzt wurde
-        const testModel = api.getModelForSystem?.("dsa5");
-        console.log("🧪 Überprüftes Model für 'dsa5':", testModel);
+        // Zeitverzögerte Überprüfung, um Timing-Probleme zu vermeiden
+        setTimeout(() => {
+            const testModel = api.getModelForSystem?.("dsa5");
+            console.log("🧪 Überprüftes Model für 'dsa5' nach Timeout:", testModel);
+        }, 100);
     } else {
         console.warn("⚠️ mookAI | API nicht verfügbar oder Modul nicht geladen.");
     }
