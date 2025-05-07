@@ -1,6 +1,6 @@
 # mookAI-dsa5
 
-This module extends the [mookAI](https://github.com/CircusGM/mookAI-12) module to support **Das Schwarze Auge 5 (DSA5)** in Foundry VTT.
+This module extends the  [mookAI](https://github.com/CircusGM/mookAI-12) module to support **Das Schwarze Auge 5 (DSA5)** in Foundry VTT.
 
 It provides basic automation for NPCs during combat, allowing them to:
 - Automatically detect player characters (Disposition: Friendly)
