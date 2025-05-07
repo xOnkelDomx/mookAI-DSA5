@@ -14,10 +14,8 @@ class MookModelDSA5 extends MookModel {
     chooseTarget() {
         const token = this.token;
 
-        // Nur feindliche NPCs agieren automatisch
         if (token.document.disposition !== -1) return null;
 
-        // Ziel: alle Tokens mit freundlicher Disposition (Spieler)
         const targets = canvas.tokens.placeables.filter(t =>
             t.actor &&
             t.document.disposition === 1 &&
@@ -27,7 +25,6 @@ class MookModelDSA5 extends MookModel {
 
         if (targets.length === 0) return null;
 
-        // Nächstgelegenes Ziel bestimmen
         targets.sort((a, b) => {
             const distA = canvas.grid.measureDistance(token.center, a.center);
             const distB = canvas.grid.measureDistance(token.center, b.center);
@@ -61,7 +58,6 @@ class MookModelDSA5 extends MookModel {
 
         debugLog(`mookAI | [DSA5] Attempting attack: ${name_}`);
 
-        // Waffen in Reihenfolge: Nahkampf > Fernkampf > Wurfwaffe
         let weapon = actor.items.find(i => i.type === "meleeweapon") ||
                      actor.items.find(i => i.type === "rangeweapon") ||
                      actor.items.find(i => i.type === "throwweapon");
@@ -115,6 +111,8 @@ Hooks.once("init", () => {
 
 Hooks.once("ready", () => {
     const api = game.modules.get("mookAI-12")?.api;
+    console.log("🧪 mookAI-DSA5 | Found mookAI-12 API:", api);
+
     if (api?.registerSystemModel) {
         api.registerSystemModel("dsa5", MookModelDSA5, MookModelSettings);
         console.log("✅ mookAI-DSA5: ModelClass via registerSystemModel() registriert");
