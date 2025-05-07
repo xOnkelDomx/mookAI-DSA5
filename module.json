@@ -2,7 +2,7 @@
   "id": "mookAI-DSA5",
   "name": "mookAI-DSA5",
   "title": "mookAI für DSA5",
-  "description": "DSA5-spezifisches mookAI-Modell.",
+  "description": "Eigenständiges DSA5-spezifisches mookAI-Modul für FoundryVTT.",
   "version": "1.0.0",
   "authors": [
     {
@@ -16,7 +16,11 @@
     "maximum": "13"
   },
   "esmodules": [
-    "scripts/mookDSA5.js"
+    "scripts/mookDSA5.js",
+    "scripts/mookModel.js",
+    "scripts/mookModelSettings.js",
+    "scripts/mook.js",
+    "scripts/behaviors.js"
   ],
   "styles": [],
   "relationships": {
@@ -34,26 +38,12 @@
     "requires": [
       {
         "id": "lib-find-the-path-12",
-        "type": "module"
-      },
-      {
-        "id": "mookAI-12",
-        "type": "module"
+        "type": "module",
+        "manifest": "https://github.com/CircusGM/lib-find-the-path-12/releases/download/2.0.5/module.json"
       }
     ]
   },
-  "dependencies": [
-    {
-      "name": "mookAI-12",
-      "type": "module"
-    }
-  ],
-  "flags": {
-    "mookAI-DSA5": {
-      "requires": ["mookAI-12"]
-    }
-  },
-  "url": "https://github.com/OnkelDom/mookAI-dsa5",
+  "url": "https://github.com/xOnkelDomx/mookAI-DSA5",
   "manifest": "https://raw.githubusercontent.com/xOnkelDomx/mookAI-DSA5/main/module.json",
   "download": "https://github.com/xOnkelDomx/mookAI-DSA5/releases/latest/download/mookAI-DSA5.zip",
   "license": "LICENSE",
