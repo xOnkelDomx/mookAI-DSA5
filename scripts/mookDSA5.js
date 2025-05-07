@@ -5,13 +5,10 @@ import { debugLog } from "../../mookAI-12/scripts/behaviors.js";
 /*
    DSA5-specific Mook model for mookAI. Supports simple melee, ranged, and thrown weapon attacks.
 */
-
-console.log("✅ mookAI-DSA5: Modul wurde geladen");
-
 class MookModelDSA5 extends MookModel {
     constructor(token_, settings_, ...args_) {
         super(token_, settings_);
-        this.actionsRemaining = 1;
+        this.actionsRemaining = 1; // DSA5: in der Regel 1 Aktion pro Runde
     }
 
     chooseTarget() {
@@ -20,6 +17,7 @@ class MookModelDSA5 extends MookModel {
         // Nur feindliche NPCs agieren automatisch
         if (token.document.disposition !== -1) return null;
 
+        // Ziel: alle Tokens mit freundlicher Disposition (Spieler)
         const targets = canvas.tokens.placeables.filter(t =>
             t.actor &&
             t.document.disposition === 1 &&
@@ -29,6 +27,7 @@ class MookModelDSA5 extends MookModel {
 
         if (targets.length === 0) return null;
 
+        // Nächstgelegenes Ziel bestimmen
         targets.sort((a, b) => {
             const distA = canvas.grid.measureDistance(token.center, a.center);
             const distB = canvas.grid.measureDistance(token.center, b.center);
@@ -62,6 +61,7 @@ class MookModelDSA5 extends MookModel {
 
         debugLog(`mookAI | [DSA5] Attempting attack: ${name_}`);
 
+        // Waffen in Reihenfolge: Nahkampf > Fernkampf > Wurfwaffe
         let weapon = actor.items.find(i => i.type === "meleeweapon") ||
                      actor.items.find(i => i.type === "rangeweapon") ||
                      actor.items.find(i => i.type === "throwweapon");
@@ -108,15 +108,13 @@ class MookModelDSA5 extends MookModel {
     }
 }
 
-// Registrierung des DSA5-Modells
-Hooks.once("ready", () => {
-    console.log("✅ mookAI-DSA5: ready hook erreicht");
-});
-
-Hooks.on("mookAI.getModelClass", (systemId, modelClassContainer) => {
-    console.log(`📦 mookAI-DSA5: getModelClass Hook aktiviert für systemId=${systemId}`);
-    if (systemId === "dsa5") {
-        modelClassContainer.modelClass = MookModelDSA5;
-        console.log("✅ mookAI-DSA5: ModelClass erfolgreich registriert!");
-    }
+// Früher Hook für Model-Registrierung
+Hooks.once("init", () => {
+    console.log("✅ mookAI-DSA5: init hook erreicht");
+    Hooks.on("mookAI.getModelClass", (systemId, modelClassContainer) => {
+        if (systemId === "dsa5") {
+            modelClassContainer.modelClass = MookModelDSA5;
+            console.log("✅ mookAI-DSA5: ModelClass erfolgreich registriert für dsa5");
+        }
+    });
 });
