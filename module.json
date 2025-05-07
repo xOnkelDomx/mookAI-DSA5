@@ -42,7 +42,7 @@
     ]
   },
   "url": "https://github.com/OnkelDom/mookAI-dsa5",
-  "manifest": "https://github.com/OnkelDom/mookAI-dsa5/releases/latest/module.json",
+  "manifest": "https://github.com/OnkelDom/mookAI-dsa5/releases/latest/download/module.json",
   "download": "https://github.com/OnkelDom/mookAI-dsa5/releases/latest/download/mookAI-dsa5.zip",
   "license": "LICENSE",
   "readme": "README.md"
