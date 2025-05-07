@@ -116,6 +116,10 @@ Hooks.once("ready", () => {
     if (api?.registerSystemModel) {
         api.registerSystemModel("dsa5", MookModelDSA5, MookModelSettings);
         console.log("✅ mookAI-DSA5: ModelClass via registerSystemModel() registriert");
+
+        // Nachprüfen, ob es wirklich gesetzt wurde
+        const testModel = api.getModelForSystem?.("dsa5");
+        console.log("🧪 Überprüftes Model für 'dsa5':", testModel);
     } else {
         console.warn("⚠️ mookAI | API nicht verfügbar oder Modul nicht geladen.");
     }
